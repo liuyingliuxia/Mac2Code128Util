@@ -45,6 +45,10 @@ public class MainActivity extends Activity {
         String mac = CommonUtil.getWifiMacAddress(this);
         tvMac.setText(getString(R.string.mac, mac));
         createBarCode(mac);
+        if(mac.isEmpty()){
+            tvMac.setText(getString(R.string.no_mac));
+            ivCode.setBackgroundResource(R.mipmap.banner);
+        }
     }
 
 
