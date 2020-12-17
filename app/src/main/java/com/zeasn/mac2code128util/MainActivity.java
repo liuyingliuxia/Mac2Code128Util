@@ -25,8 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+import com.king.zxing.util.CodeUtils;
 
 
 public class MainActivity extends Activity {
@@ -45,16 +44,24 @@ public class MainActivity extends Activity {
         ivCode = findViewById(R.id.ivCode);
         String mac = CommonUtil.getWifiMacAddress(this);
         tvMac.setText(getString(R.string.mac, mac));
-        toCode128(mac);
+        createBarCode(mac);
     }
 
-    private void toCode128(String mac) {
-        try {
-            Bitmap mBitmap = CodeUtils.createBarCode(this, BarcodeFormat.CODE_128,800,200);
-            ivCode.setImageBitmap(mBitmap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    /**
+     * 生成条形码
+     * @param content
+     */
+    private void createBarCode(String content){
+        new Thread(() -> {
+            //生成条形码相关放在子线程里面
+            Bitmap bitmap = CodeUtils.createBarCode(content, BarcodeFormat.CODE_128,800,200,null,false);
+            runOnUiThread(()->{
+                //显示条形码
+                ivCode.setImageBitmap(bitmap);
+            });
+        }).start();
     }
+
 
 }
