@@ -42,25 +42,33 @@ public class MainActivity extends Activity {
 
         tvMac = findViewById(R.id.tvMac);
         ivCode = findViewById(R.id.ivCode);
-        String mac = CommonUtil.getWifiMacAddress(this);
-        tvMac.setText(getString(R.string.mac, mac));
-        createBarCode(mac);
-        if(mac.isEmpty()){
-            tvMac.setText(getString(R.string.no_mac));
-            ivCode.setBackgroundResource(R.mipmap.banner);
+        String mac = CommonUtil.getWifiMacAddress(this, "eth0");
+        if (mac.isEmpty()) {
+            mac = CommonUtil.getWifiMacAddress(this, "wlan0");
+            if (mac.isEmpty()) {
+                tvMac.setText(getString(R.string.no_mac));
+                ivCode.setBackgroundResource(R.mipmap.banner);
+            } else {
+                tvMac.setText(getString(R.string.mac, mac));
+                createBarCode(mac);
+            }
+        } else {
+            tvMac.setText(getString(R.string.mac, mac));
+            createBarCode(mac);
         }
     }
 
 
     /**
      * 生成条形码
+     *
      * @param content
      */
-    private void createBarCode(String content){
+    private void createBarCode(String content) {
         new Thread(() -> {
             //生成条形码相关放在子线程里面
-            Bitmap bitmap = CodeUtils.createBarCode(content, BarcodeFormat.CODE_128,800,200,null,false);
-            runOnUiThread(()->{
+            Bitmap bitmap = CodeUtils.createBarCode(content, BarcodeFormat.CODE_128, 800, 200, null, false);
+            runOnUiThread(() -> {
                 //显示条形码
                 ivCode.setImageBitmap(bitmap);
             });

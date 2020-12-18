@@ -20,12 +20,18 @@ import java.util.List;
  * Created by ben_zhao on 2017/5/31.
  */
 public class CommonUtil {
-
-    public static String getWifiMacAddress(Context context) {
+    /**
+     *
+     *
+     * @param context
+     * @param interfaceName 有线/无线 可选：eth0 / wlan0
+     * @return
+     */
+    public static String getWifiMacAddress(Context context, String interfaceName) {
         String ret = "";
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                String interfaceName = "eth0";
+//                String interfaceName = "eth0";
                 Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
                 NetworkInterface intf = null;
                 while (interfaces.hasMoreElements()) {
