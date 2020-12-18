@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Mac2Code128Util"
+rootProject.name = "MacUtil"

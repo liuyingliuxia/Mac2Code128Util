@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MacToCode128Util</string>
+    <string name="app_name">MacUtil</string>
     <string name="mac">MAC:%s</string>
-
+    <string name="no_mac">Sorry!Can\'t get Mac address</string>
 </resources>
