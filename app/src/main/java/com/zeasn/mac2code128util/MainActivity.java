@@ -49,11 +49,11 @@ public class MainActivity extends Activity {
                 tvMac.setText(getString(R.string.no_mac));
                 ivCode.setBackgroundResource(R.mipmap.banner);
             } else {
-                tvMac.setText(getString(R.string.mac, mac));
+                tvMac.setText(getString(R.string.wifi_mac, mac));
                 createBarCode(mac);
             }
         } else {
-            tvMac.setText(getString(R.string.mac, mac));
+            tvMac.setText(getString(R.string.e_mac, mac));
             createBarCode(mac);
         }
     }
